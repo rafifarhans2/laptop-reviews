@@ -15,51 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/auth/change-password": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Changing password for a logged-in user.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Change password for a user.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "the body to change password for a user",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controllers.ChangePasswordInput"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/brand": {
+        "/api/brand": {
             "post": {
                 "security": [
                     {
@@ -103,7 +59,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/brand/{id}": {
+        "/api/brand/{id}": {
             "get": {
                 "description": "Get a brand by ID.",
                 "produces": [
@@ -222,7 +178,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/brands": {
+        "/api/brands": {
             "get": {
                 "description": "Get a list of all brand.",
                 "produces": [
@@ -243,7 +199,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/categories": {
+        "/api/categories": {
             "get": {
                 "description": "Get a list of all categories.",
                 "produces": [
@@ -262,7 +218,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/category": {
             "post": {
                 "security": [
                     {
@@ -306,7 +264,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/categories/{id}": {
+        "/api/category/{id}": {
             "get": {
                 "description": "Get a category by ID.",
                 "produces": [
@@ -412,6 +370,234 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/laptop": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create a new laptop.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Laptop"
+                ],
+                "summary": "Create a new laptop.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "the body to create a laptop",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.LaptopInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/laptop/{id}": {
+            "get": {
+                "description": "Get a laptop by ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Laptop"
+                ],
+                "summary": "Get a laptop.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Laptop ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update a laptop by ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Laptop"
+                ],
+                "summary": "Update a laptop.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Laptop ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "the body to update a laptop",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.LaptopInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete a laptop by ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Laptop"
+                ],
+                "summary": "Delete a laptop.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Laptop ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/api/laptops": {
+            "get": {
+                "description": "Get a list of all laptops.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Laptop"
+                ],
+                "summary": "Get all laptops.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/change-password": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Changing password for a logged-in user.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Change password for a user.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "the body to change password for a user",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.ChangePasswordInput"
+                        }
                     }
                 ],
                 "responses": {
@@ -598,188 +784,6 @@ const docTemplate = `{
                     "Comment"
                 ],
                 "summary": "Get all comments.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/laptops": {
-            "get": {
-                "description": "Get a list of all laptops.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Laptop"
-                ],
-                "summary": "Get all laptops.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            },
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Create a new laptop.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Laptop"
-                ],
-                "summary": "Create a new laptop.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "the body to create a laptop",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controllers.LaptopInput"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/laptops/{id}": {
-            "get": {
-                "description": "Get a laptop by ID.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Laptop"
-                ],
-                "summary": "Get a laptop.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Laptop ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Update a laptop by ID.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Laptop"
-                ],
-                "summary": "Update a laptop.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Laptop ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "the body to update a laptop",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controllers.LaptopInput"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Delete a laptop by ID.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Laptop"
-                ],
-                "summary": "Delete a laptop.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Laptop ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",

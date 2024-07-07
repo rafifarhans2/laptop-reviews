@@ -16,7 +16,6 @@ func ConnectDataBase() *gorm.DB {
 	var db *gorm.DB
 
 	if dbProvider == "postgres" {
-
 		username := os.Getenv("DB_USERNAME")
 		password := os.Getenv("DB_PASSWORD")
 		host := os.Getenv("DB_HOST")
@@ -36,7 +35,7 @@ func ConnectDataBase() *gorm.DB {
 		password := utils.Getenv("DB_PASSWORD", "root")
 		host := utils.Getenv("DB_HOST", "127.0.0.1")
 		port := utils.Getenv("DB_PORT", "3306")
-		database := utils.Getenv("DB_NAME", "root")
+		database := utils.Getenv("DB_NAME", "db_name")
 
 		dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", username, password, host, port, database)
 
@@ -45,9 +44,13 @@ func ConnectDataBase() *gorm.DB {
 		if err != nil {
 			panic(err.Error())
 		}
+
 		db = dbGorm
+
 	}
+
 	db.AutoMigrate(&models.User{}, &models.Profile{}, &models.Laptop{}, &models.Brand{}, &models.Category{}, &models.Comment{})
 
 	return db
+
 }

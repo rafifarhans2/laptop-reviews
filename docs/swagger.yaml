@@ -90,35 +90,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /auth/change-password:
-    put:
-      description: Changing password for a logged-in user.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: the body to change password for a user
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.ChangePasswordInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Change password for a user.
-      tags:
-      - Auth
-  /brand:
+  /api/brand:
     post:
       description: Create a new Brand.
       parameters:
@@ -146,7 +118,7 @@ paths:
       summary: Create a new Brand.
       tags:
       - Brand
-  /brand/{id}:
+  /api/brand/{id}:
     delete:
       description: Delete a brand by ID.
       parameters:
@@ -224,7 +196,7 @@ paths:
       summary: Update a brand.
       tags:
       - Brand
-  /brands:
+  /api/brands:
     get:
       description: Get a list of all brand.
       produces:
@@ -238,7 +210,7 @@ paths:
       summary: Get all brands.
       tags:
       - Brand
-  /categories:
+  /api/categories:
     get:
       description: Get a list of all categories.
       produces:
@@ -252,6 +224,7 @@ paths:
       summary: Get all categories.
       tags:
       - Category
+  /api/category:
     post:
       description: Create a new category.
       parameters:
@@ -279,7 +252,7 @@ paths:
       summary: Create a new category.
       tags:
       - Category
-  /categories/{id}:
+  /api/category/{id}:
     delete:
       description: Delete a category by ID.
       parameters:
@@ -357,6 +330,154 @@ paths:
       summary: Update a category.
       tags:
       - Category
+  /api/laptop:
+    post:
+      description: Create a new laptop.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the body to create a laptop
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LaptopInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new laptop.
+      tags:
+      - Laptop
+  /api/laptop/{id}:
+    delete:
+      description: Delete a laptop by ID.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Laptop ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a laptop.
+      tags:
+      - Laptop
+    get:
+      description: Get a laptop by ID.
+      parameters:
+      - description: Laptop ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get a laptop.
+      tags:
+      - Laptop
+    put:
+      description: Update a laptop by ID.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Laptop ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update a laptop
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LaptopInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Update a laptop.
+      tags:
+      - Laptop
+  /api/laptops:
+    get:
+      description: Get a list of all laptops.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get all laptops.
+      tags:
+      - Laptop
+  /auth/change-password:
+    put:
+      description: Changing password for a logged-in user.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the body to change password for a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ChangePasswordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Change password for a user.
+      tags:
+      - Auth
   /comment:
     post:
       description: Create a new comment for a laptop.
@@ -477,125 +598,6 @@ paths:
       summary: Get all comments.
       tags:
       - Comment
-  /laptops:
-    get:
-      description: Get a list of all laptops.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Get all laptops.
-      tags:
-      - Laptop
-    post:
-      description: Create a new laptop.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: the body to create a laptop
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.LaptopInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Create a new laptop.
-      tags:
-      - Laptop
-  /laptops/{id}:
-    delete:
-      description: Delete a laptop by ID.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Laptop ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Delete a laptop.
-      tags:
-      - Laptop
-    get:
-      description: Get a laptop by ID.
-      parameters:
-      - description: Laptop ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Get a laptop.
-      tags:
-      - Laptop
-    put:
-      description: Update a laptop by ID.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Laptop ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: the body to update a laptop
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.LaptopInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Update a laptop.
-      tags:
-      - Laptop
   /login:
     post:
       description: Logging in to get jwt token to access admin or user api by roles.
