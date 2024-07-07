@@ -330,6 +330,98 @@ paths:
       summary: Update a category.
       tags:
       - Category
+  /api/comment/{id}:
+    delete:
+      description: Delete a comment by ID.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a comment.
+      tags:
+      - Comment
+    get:
+      description: Get a comment by ID.
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get a comment.
+      tags:
+      - Comment
+    put:
+      description: Update a comment by ID.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update a comment
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CommentInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Update a comment.
+      tags:
+      - Comment
+  /api/comments:
+    get:
+      description: Get a list of all comments.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get all comments.
+      tags:
+      - Comment
   /api/laptop:
     post:
       description: Create a new laptop.
@@ -504,98 +596,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Create a new comment.
-      tags:
-      - Comment
-  /comment/{id}:
-    delete:
-      description: Delete a comment by ID.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Comment ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Delete a comment.
-      tags:
-      - Comment
-    get:
-      description: Get a comment by ID.
-      parameters:
-      - description: Comment ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Get a comment.
-      tags:
-      - Comment
-    put:
-      description: Update a comment by ID.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: Comment ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: the body to update a comment
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.CommentInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Update a comment.
-      tags:
-      - Comment
-  /comments:
-    get:
-      description: Get a list of all comments.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Get all comments.
       tags:
       - Comment
   /login:

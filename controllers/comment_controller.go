@@ -60,7 +60,7 @@ func CreateComment(c *gin.Context) {
 // @Tags Comment
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /comments [get]
+// @Router /api/comments [get]
 func GetComments(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var comments []models.Comment
@@ -80,7 +80,7 @@ func GetComments(c *gin.Context) {
 // @Param id path string true "Comment ID"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /comment/{id} [get]
+// @Router /api/comment/{id} [get]
 func GetCommentById(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var comment models.Comment
@@ -102,7 +102,7 @@ func GetCommentById(c *gin.Context) {
 // @Param Body body CommentInput true "the body to update a comment"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /comment/{id} [put]
+// @Router /api/comment/{id} [put]
 func UpdateComment(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	userID, err := token.ExtractTokenID(c)
@@ -149,7 +149,7 @@ func UpdateComment(c *gin.Context) {
 // @Param id path string true "Comment ID"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /comment/{id} [delete]
+// @Router /api/comment/{id} [delete]
 func DeleteComment(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	userID, err := token.ExtractTokenID(c)
