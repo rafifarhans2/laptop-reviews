@@ -38,6 +38,7 @@ func CreateProfile(c *gin.Context) {
 		return
 	}
 
+	// Check if profile already exists for the user
 	var existingProfile models.Profile
 	if err := db.Where("user_id = ?", userID).First(&existingProfile).Error; err == nil {
 		c.JSON(http.StatusConflict, gin.H{"error": "Profile already exists"})
