@@ -570,28 +570,7 @@ paths:
       summary: Get all laptops.
       tags:
       - Laptop
-  /api/profiles:
-    get:
-      description: Get a profile by user ID.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Get a profile.
-      tags:
-      - Profile
+  /api/profile:
     post:
       description: Create a new profile for a user.
       parameters:
@@ -644,6 +623,28 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Update a profile.
+      tags:
+      - Profile
+  /api/profiles:
+    get:
+      description: Get a profile by user ID.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Get a profile.
       tags:
       - Profile
   /auth/change-password:
