@@ -38,6 +38,12 @@ func CreateProfile(c *gin.Context) {
 		return
 	}
 
+	var existingProfile models.Profile
+	if err := db.Where("user_id = ?", userID).First(&existingProfile).Error; err == nil {
+		c.JSON(http.StatusConflict, gin.H{"error": "Profile already exists"})
+		return
+	}
+
 	profile := models.Profile{
 		Fullname: input.Fullname,
 		Bio:      input.Bio,
