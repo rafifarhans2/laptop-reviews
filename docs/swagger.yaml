@@ -628,12 +628,6 @@ paths:
   /api/profiles:
     get:
       description: Get a profile by user ID.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -642,8 +636,6 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      security:
-      - ApiKeyAuth: []
       summary: Get a profile.
       tags:
       - Profile

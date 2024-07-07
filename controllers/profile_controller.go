@@ -63,8 +63,6 @@ func CreateProfile(c *gin.Context) {
 // @Summary Get a profile.
 // @Description Get a profile by user ID.
 // @Tags Profile
-// @Security ApiKeyAuth
-// @Param Authorization header string true "Bearer token"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
 // @Router /api/profiles [get]

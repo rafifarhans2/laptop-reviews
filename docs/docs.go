@@ -839,11 +839,6 @@ const docTemplate = `{
         },
         "/api/profiles": {
             "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "description": "Get a profile by user ID.",
                 "produces": [
                     "application/json"
@@ -852,15 +847,6 @@ const docTemplate = `{
                     "Profile"
                 ],
                 "summary": "Get a profile.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
