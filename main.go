@@ -12,16 +12,24 @@ import (
 
 func main() {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	environment := utils.Getenv("ENVIRONMENT", "development")
+
+	if environment == "development" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
 	docs.SwaggerInfo.Title = "Laptop Review REST API"
 	docs.SwaggerInfo.Description = "This is REST API Laptop Review."
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.Host = utils.Getenv("HOST", "localhost:8080")
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	if environment == "development" {
+		docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	} else {
+		docs.SwaggerInfo.Schemes = []string{"https"}
+	}
 
 	db := configs.ConnectDataBase()
 	sqlDB, _ := db.DB()
