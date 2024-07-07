@@ -330,6 +330,34 @@ paths:
       summary: Update a category.
       tags:
       - Category
+  /api/comment:
+    post:
+      description: Create a new comment for a laptop.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the body to create a comment
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.CommentInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new comment.
+      tags:
+      - Comment
   /api/comment/{id}:
     delete:
       description: Delete a comment by ID.
@@ -542,84 +570,7 @@ paths:
       summary: Get all laptops.
       tags:
       - Laptop
-  /auth/change-password:
-    put:
-      description: Changing password for a logged-in user.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: the body to change password for a user
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.ChangePasswordInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Change password for a user.
-      tags:
-      - Auth
-  /comment:
-    post:
-      description: Create a new comment for a laptop.
-      parameters:
-      - description: Bearer token
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: the body to create a comment
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.CommentInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - ApiKeyAuth: []
-      summary: Create a new comment.
-      tags:
-      - Comment
-  /login:
-    post:
-      description: Logging in to get jwt token to access admin or user api by roles.
-      parameters:
-      - description: the body to login a user
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.LoginInput'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Login as as user.
-      tags:
-      - Auth
-  /profiles:
+  /api/profiles:
     get:
       description: Get a profile by user ID.
       parameters:
@@ -695,6 +646,55 @@ paths:
       summary: Update a profile.
       tags:
       - Profile
+  /auth/change-password:
+    put:
+      description: Changing password for a logged-in user.
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the body to change password for a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.ChangePasswordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Change password for a user.
+      tags:
+      - Auth
+  /login:
+    post:
+      description: Logging in to get jwt token to access admin or user api by roles.
+      parameters:
+      - description: the body to login a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as as user.
+      tags:
+      - Auth
   /register:
     post:
       description: registering a user from public access.

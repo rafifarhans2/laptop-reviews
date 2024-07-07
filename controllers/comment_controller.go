@@ -24,7 +24,7 @@ type CommentInput struct {
 // @Param Body body CommentInput true "the body to create a comment"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /comment [post]
+// @Router /api/comment [post]
 func CreateComment(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	userID, err := token.ExtractTokenID(c)

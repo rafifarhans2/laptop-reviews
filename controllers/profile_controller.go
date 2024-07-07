@@ -23,7 +23,7 @@ type ProfileInput struct {
 // @Param Body body ProfileInput true "the body to create a profile"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /profiles [post]
+// @Router /api/profiles [post]
 func CreateProfile(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	userID, err := token.ExtractTokenID(c)
@@ -60,7 +60,7 @@ func CreateProfile(c *gin.Context) {
 // @Param Authorization header string true "Bearer token"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /profiles [get]
+// @Router /api/profiles [get]
 func GetProfile(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	userID, err := token.ExtractTokenID(c)
@@ -87,7 +87,7 @@ func GetProfile(c *gin.Context) {
 // @Param Body body ProfileInput true "the body to update a profile"
 // @Produce json
 // @Success 200 {object} map[string]interface{}
-// @Router /profiles [put]
+// @Router /api/profiles [put]
 func UpdateProfile(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	userID, err := token.ExtractTokenID(c)
