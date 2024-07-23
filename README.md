@@ -1,1 +1,1 @@
-ALready deploy in vercel, this link for view the result: fp-laptop-reviews.vercel.app
+Already deploy in vercel, this link for view the result: fp-laptop-reviews.vercel.app
