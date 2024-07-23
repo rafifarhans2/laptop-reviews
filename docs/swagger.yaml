@@ -72,6 +72,7 @@ definitions:
       fullname:
         type: string
     required:
+    - bio
     - fullname
     type: object
   controllers.RegisterInput:
@@ -593,6 +594,26 @@ paths:
           schema:
             additionalProperties: true
             type: object
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "409":
+          description: Profile already exists for this user
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Failed to create profile
+          schema:
+            additionalProperties: true
+            type: object
       security:
       - ApiKeyAuth: []
       summary: Create a new profile.
@@ -620,6 +641,26 @@ paths:
           schema:
             additionalProperties: true
             type: object
+        "400":
+          description: Invalid request body
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Profile not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Failed to update profile
+          schema:
+            additionalProperties: true
+            type: object
       security:
       - ApiKeyAuth: []
       summary: Update a profile.
@@ -628,11 +669,27 @@ paths:
   /api/profiles:
     get:
       description: Get a profile by user ID.
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid user ID
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Profile not found
           schema:
             additionalProperties: true
             type: object
