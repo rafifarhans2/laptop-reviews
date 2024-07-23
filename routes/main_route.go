@@ -59,10 +59,10 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 
 		//Comment
 		api.GET("/comments", controllers.GetComments)
-		api.GET("/comments/:id", controllers.GetCommentById)
-		api.POST("/comments", middleware.JwtAuthMiddleware(), controllers.CreateComment)
-		api.PUT("/comments/:id", middleware.JwtAuthMiddleware(), controllers.UpdateComment)
-		api.DELETE("/comments/:id", middleware.JwtAuthMiddleware(), controllers.DeleteComment)
+		api.GET("/comment/:id", controllers.GetCommentById)
+		api.POST("/comment", middleware.JwtAuthMiddleware(), controllers.CreateComment)
+		api.PUT("/comment/:id", middleware.JwtAuthMiddleware(), controllers.UpdateComment)
+		api.DELETE("/comment/:id", middleware.JwtAuthMiddleware(), controllers.DeleteComment)
 
 	}
 
