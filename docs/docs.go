@@ -1071,12 +1071,12 @@ const docTemplate = `{
         "controllers.CommentInput": {
             "type": "object",
             "required": [
-                "description",
+                "content",
                 "laptop_id",
                 "rating"
             ],
             "properties": {
-                "description": {
+                "content": {
                     "type": "string"
                 },
                 "laptop_id": {

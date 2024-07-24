@@ -25,14 +25,14 @@ definitions:
     type: object
   controllers.CommentInput:
     properties:
-      description:
+      content:
         type: string
       laptop_id:
         type: integer
       rating:
         type: integer
     required:
-    - description
+    - content
     - laptop_id
     - rating
     type: object

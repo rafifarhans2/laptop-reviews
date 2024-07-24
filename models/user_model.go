@@ -18,6 +18,7 @@ type User struct {
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 	Profile   Profile   `json:"profile"`
+	Comments  []Comment `json:"comments"`
 }
 
 func HashPassword(password string) (string, error) {

@@ -10,7 +10,7 @@ import (
 )
 
 type CommentInput struct {
-	Content  string `json:"description" binding:"required"`
+	Content  string `json:"content" binding:"required"`
 	Rating   int    `json:"rating" binding:"required"`
 	LaptopID uint   `json:"laptop_id" binding:"required"`
 }
@@ -65,7 +65,7 @@ func GetComments(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var comments []models.Comment
 
-	if err := db.Preload("User").Preload("Laptop").Find(&comments).Error; err != nil {
+	if err := db.Find(&comments).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve comments"})
 		return
 	}
@@ -84,7 +84,7 @@ func GetComments(c *gin.Context) {
 func GetCommentById(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var comment models.Comment
-	if err := db.Preload("User").Preload("Laptop").Where("id = ?", c.Param("id")).First(&comment).Error; err != nil {
+	if err := db.Where("id = ?", c.Param("id")).First(&comment).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Comment not found"})
 		return
 	}

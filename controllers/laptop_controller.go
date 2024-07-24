@@ -3,6 +3,7 @@ package controllers
 import (
 	"final-project-rest-api/models"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -64,7 +65,7 @@ func GetLaptops(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var laptops []models.Laptop
 
-	if err := db.Preload("Brand").Preload("Category").Find(&laptops).Error; err != nil {
+	if err := db.Preload("Brand").Preload("Category").Preload("Comments").Find(&laptops).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve laptops"})
 		return
 	}
@@ -72,7 +73,7 @@ func GetLaptops(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"laptops": laptops})
 }
 
-// GetLaptop godoc
+// GetLaptopById godoc
 // @Summary Get a laptop.
 // @Description Get a laptop by ID.
 // @Tags Laptop
@@ -83,7 +84,14 @@ func GetLaptops(c *gin.Context) {
 func GetLaptopById(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var laptop models.Laptop
-	if err := db.Preload("Brand").Preload("Category").Where("id = ?", c.Param("id")).First(&laptop).Error; err != nil {
+
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	if err := db.Preload("Brand").Preload("Category").Preload("Comments.User").Where("id = ?", id).First(&laptop).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Laptop not found"})
 		return
 	}
@@ -105,13 +113,21 @@ func GetLaptopById(c *gin.Context) {
 func UpdateLaptop(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var input LaptopInput
+
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	var laptop models.Laptop
-	if err := db.Where("id = ?", c.Param("id")).First(&laptop).Error; err != nil {
+
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	if err := db.Where("id = ?", id).First(&laptop).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Laptop not found"})
 		return
 	}
@@ -144,7 +160,14 @@ func UpdateLaptop(c *gin.Context) {
 func DeleteLaptop(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var laptop models.Laptop
-	if err := db.Where("id = ?", c.Param("id")).First(&laptop).Error; err != nil {
+
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	if err := db.Where("id = ?", id).First(&laptop).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Laptop not found"})
 		return
 	}
