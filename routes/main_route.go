@@ -64,7 +64,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		// Profile
 		api.GET("/profiles", controllers.GetProfile)
 		api.POST("/profile", middleware.JwtAuthMiddleware(), controllers.CreateProfile)
-		api.PUT("/profile/:id", middleware.JwtAuthMiddleware(), controllers.UpdateProfile)
+		api.PUT("/profile", middleware.JwtAuthMiddleware(), controllers.UpdateProfile)
 
 		// Comment
 		api.GET("/comments", controllers.GetComments)

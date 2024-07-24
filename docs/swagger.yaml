@@ -88,6 +88,21 @@ definitions:
     - password
     - username
     type: object
+  models.Profile:
+    properties:
+      bio:
+        type: string
+      created_at:
+        type: string
+      fullname:
+        type: string
+      id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
 info:
   contact: {}
 paths:
@@ -589,11 +604,10 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.Profile'
         "400":
           description: Invalid request body
           schema:
@@ -639,8 +653,7 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.Profile'
         "400":
           description: Invalid request body
           schema:
@@ -668,32 +681,22 @@ paths:
       - Profile
   /api/profiles:
     get:
-      description: Get a profile by user ID.
-      parameters:
-      - description: User ID
-        in: query
-        name: user_id
-        required: true
-        type: string
+      description: Retrieve all profiles.
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Invalid user ID
+            items:
+              $ref: '#/definitions/models.Profile'
+            type: array
+        "500":
+          description: Failed to retrieve profiles
           schema:
             additionalProperties: true
             type: object
-        "404":
-          description: Profile not found
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Get a profile.
+      summary: Get all profiles.
       tags:
       - Profile
   /auth/change-password:
@@ -726,7 +729,7 @@ paths:
       - Auth
   /login:
     post:
-      description: Logging in to get jwt token to access admin or user api by roles.
+      description: Logging in to get JWT token to access admin or user API by roles.
       parameters:
       - description: the body to login a user
         in: body
@@ -742,12 +745,12 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Login as as user.
+      summary: Login as a user.
       tags:
       - Auth
   /register:
     post:
-      description: registering a user from public access.
+      description: Registering a user from public access.
       parameters:
       - description: the body to register a user
         in: body

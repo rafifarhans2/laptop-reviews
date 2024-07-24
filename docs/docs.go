@@ -788,8 +788,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.Profile"
                         }
                     },
                     "400": {
@@ -855,11 +854,10 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.Profile"
                         }
                     },
                     "400": {
@@ -895,40 +893,26 @@ const docTemplate = `{
         },
         "/api/profiles": {
             "get": {
-                "description": "Get a profile by user ID.",
+                "description": "Retrieve all profiles.",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Profile"
                 ],
-                "summary": "Get a profile.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User ID",
-                        "name": "user_id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
+                "summary": "Get all profiles.",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Profile"
+                            }
                         }
                     },
-                    "400": {
-                        "description": "Invalid user ID",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": true
-                        }
-                    },
-                    "404": {
-                        "description": "Profile not found",
+                    "500": {
+                        "description": "Failed to retrieve profiles",
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
@@ -983,14 +967,14 @@ const docTemplate = `{
         },
         "/login": {
             "post": {
-                "description": "Logging in to get jwt token to access admin or user api by roles.",
+                "description": "Logging in to get JWT token to access admin or user API by roles.",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Login as as user.",
+                "summary": "Login as a user.",
                 "parameters": [
                     {
                         "description": "the body to login a user",
@@ -1015,7 +999,7 @@ const docTemplate = `{
         },
         "/register": {
             "post": {
-                "description": "registering a user from public access.",
+                "description": "Registering a user from public access.",
                 "produces": [
                     "application/json"
                 ],
@@ -1177,6 +1161,29 @@ const docTemplate = `{
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "models.Profile": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "fullname": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
                 }
             }
         }

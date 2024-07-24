@@ -17,6 +17,7 @@ type User struct {
 	Password  string    `gorm:"not null;" json:"password"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Profile   Profile   `json:"profile"`
 }
 
 func HashPassword(password string) (string, error) {

@@ -3,7 +3,6 @@ package controllers
 import (
 	"final-project-rest-api/models"
 	"final-project-rest-api/utils/token"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +17,7 @@ type LoginInput struct {
 type RegisterInput struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
-	Email    string `json:"email" binding:"required"`
+	Email    string `json:"email" binding:"required,email"`
 }
 
 type ChangePasswordInput struct {
@@ -26,9 +25,9 @@ type ChangePasswordInput struct {
 	NewPassword     string `json:"new_password" binding:"required"`
 }
 
-// LoginUser godoc
-// @Summary Login as as user.
-// @Description Logging in to get jwt token to access admin or user api by roles.
+// Login handles user login
+// @Summary Login as a user.
+// @Description Logging in to get JWT token to access admin or user API by roles.
 // @Tags Auth
 // @Param Body body LoginInput true "the body to login a user"
 // @Produce json
@@ -43,31 +42,18 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	u := models.User{}
-
-	u.Username = input.Username
-	u.Password = input.Password
-
-	token, err := models.LoginCheck(u.Username, u.Password, db)
-
+	token, err := models.LoginCheck(input.Username, input.Password, db)
 	if err != nil {
-		fmt.Println(err)
-		c.JSON(http.StatusBadRequest, gin.H{"error": "username or password is incorrect."})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "username or password is incorrect"})
 		return
 	}
 
-	user := map[string]string{
-		"username": u.Username,
-		"email":    u.Email,
-	}
-
-	c.JSON(http.StatusOK, gin.H{"message": "login success", "user": user, "token": token})
-
+	c.JSON(http.StatusOK, gin.H{"message": "login success", "token": token})
 }
 
-// Register godoc
+// Register handles user registration
 // @Summary Register a user.
-// @Description registering a user from public access.
+// @Description Registering a user from public access.
 // @Tags Auth
 // @Param Body body RegisterInput true "the body to register a user"
 // @Produce json
@@ -82,29 +68,22 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	u := models.User{}
-
-	u.Username = input.Username
-	u.Email = input.Email
-	u.Password = input.Password
+	u := models.User{
+		Username: input.Username,
+		Email:    input.Email,
+		Password: input.Password,
+	}
 
 	_, err := u.SaveUser(db)
-
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	user := map[string]string{
-		"username": input.Username,
-		"email":    input.Email,
-	}
-
-	c.JSON(http.StatusOK, gin.H{"message": "registration success", "user": user})
-
+	c.JSON(http.StatusOK, gin.H{"message": "registration success"})
 }
 
-// ChangePassword godoc
+// ChangePassword handles changing user's password
 // @Summary Change password for a user.
 // @Description Changing password for a logged-in user.
 // @Tags Auth
@@ -121,7 +100,6 @@ func ChangePassword(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 		return
 	}
-	fmt.Println("Extracted userID:", userID)
 
 	var input ChangePasswordInput
 	if err := c.ShouldBindJSON(&input); err != nil {
