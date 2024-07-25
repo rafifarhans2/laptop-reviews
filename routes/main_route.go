@@ -19,7 +19,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	corsConfig.AllowAllOrigins = true
 	corsConfig.AllowHeaders = []string{"Content-Type", "X-XSRF-TOKEN", "Accept", "Origin", "X-Requested-With", "Authorization"}
 	corsConfig.AllowCredentials = true
-	corsConfig.AddAllowMethods("OPTIONS")
+	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 	r.Use(cors.New(corsConfig))
 
 	// set db to gin context
